@@ -21,6 +21,10 @@
 			});
 
 			ed.addCommand('mcePreview', function() {
+				if (Isites && Isites.showTextPreview) {
+					Isites.showTextPreview();
+					return;
+				}
 				ed.windowManager.open({
 					file : ed.getParam("plugin_preview_pageurl", url + "/preview.html"),
 					width : parseInt(ed.getParam("plugin_preview_width", "550")),

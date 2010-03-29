@@ -56,6 +56,7 @@ function resizeInputs() {
 		 wHeight = document.body.clientHeight - 70;
 		 wWidth = document.body.clientWidth - 16;
 	}
+	wHeight =wHeight-35;
 
 	el.style.height = Math.abs(wHeight) + 'px';
 	el.style.width  = Math.abs(wWidth) + 'px';

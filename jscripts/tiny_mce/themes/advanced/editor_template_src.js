@@ -1053,7 +1053,7 @@
 			var ed = this.editor;
 
 			ed.windowManager.open({
-				url : tinymce.baseURL + '/themes/advanced/about.htm',
+				url : 'http://isites.harvard.edu/icb/icb.do?keyword=standard_isites_help&state=popup&topicid=icb.topic273287&view=view.do&viewParam_popupFromPageContentId=icb.pagecontent332081',
 				width : 480,
 				height : 380,
 				inline : true
