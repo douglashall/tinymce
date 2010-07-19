@@ -9,7 +9,7 @@
 	<script type="text/javascript" src="js/link.js?v={tinymce_version}"></script>
 </head>
 <body id="link" style="display: none">
-<form onsubmit="LinkDialog.checkPrefix($('#href', this).get(0));LinkDialog.update();return false;" action="#">
+<form onsubmit="LinkDialog.checkPrefix(this.href);LinkDialog.update();return false;" action="#">
 	<div class="tabs">
 		<ul>
 			<li id="general_tab" class="current"><span><a href="javascript:mcTabs.displayTab('general_tab','general_panel');" onmousedown="return false;">{#advanced_dlg.link_title}</a></span></li>
