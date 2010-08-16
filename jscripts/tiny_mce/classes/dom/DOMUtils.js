@@ -441,7 +441,7 @@
 				if (keep_children) {
 					while (child = node.firstChild) {
 						// IE 8 will crash if you don't remove completely empty text nodes
-						if (child.nodeType !== 3 || child.nodeValue)
+						if (!tinymce.isIE || child.nodeType !== 3 || child.nodeValue)
 							parent.insertBefore(child, node);
 						else
 							node.removeChild(child);
@@ -512,7 +512,7 @@
 		 * @method getStyle
 		 * @param {String/Element} n HTML element or element id string to get style from.
 		 * @param {String} na Style name to return.
-		 * @param {String} c Computed style.
+		 * @param {Boolean} c Computed style.
 		 * @return {String} Current style or computed style value of a element.
 		 */
 		getStyle : function(n, na, c) {
@@ -812,7 +812,6 @@
 					e = t.boxModel ? d.documentElement : d.body;
 					x = t.getStyle(t.select('html')[0], 'borderWidth'); // Remove border
 					x = (x == 'medium' || t.boxModel && !t.isIE6) && 2 || x;
-					n.top += t.win.self != t.win.top ? 2 : 0; // IE adds some strange extra cord if used in a frameset
 
 					return {x : n.left + e.scrollLeft - x, y : n.top + e.scrollTop - x};
 				}
@@ -1226,7 +1225,7 @@
 						// So if we replace the p elements with divs and mark them and then replace them back to paragraphs
 						// after we use innerHTML we can fix the DOM tree
 						h = h.replace(/<p ([^>]+)>|<p>/ig, '<div $1 _mce_tmp="1">');
-						h = h.replace(/<\/p>/g, '</div>');
+						h = h.replace(/<\/p>/gi, '</div>');
 
 						// Set the new HTML with DIVs
 						set();
@@ -1857,10 +1856,13 @@
 				for (lastNodeType = node.nodeType, node = node.previousSibling, lastNode = node; node; node = node.previousSibling) {
 					nodeType = node.nodeType;
 
-					// Handle normalization of text nodes
-					if (!normalized || nodeType != 3 || (lastNodeType != nodeType && node.nodeValue.length))
-						idx++;
+					// Normalize text nodes
+					if (normalized && nodeType == 3) {
+						if (nodeType == lastNodeType || !node.nodeValue.length)
+							continue;
+					}
 
+					idx++;
 					lastNodeType = nodeType;
 				}
 			}
